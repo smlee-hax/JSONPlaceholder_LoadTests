@@ -6,7 +6,13 @@ class FetchAllPosts(TaskSet):
     def fetchAllPosts(self):
         self.parent.client.get("/posts")
 
-    @task(3)
+    @task
+    def stop(self):
+        self.interrupt()
+
+
+class FetchSpecificPosts(TaskSet):
+    @task(2)
     def fetchSpecificPost(self):
         # Get a list of all posts, then fetch a random post from the response
         # ideally: we would have a pre-populated test environment with a range of safe posts to use instead of
